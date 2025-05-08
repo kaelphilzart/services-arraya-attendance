@@ -9,7 +9,7 @@ import (
 
 type User struct {
 	ID			uuid.UUID 				`db:"id, primarykey" json:"id"`
-	Name		string					`db:"username" json:"username"`
+	Name		string					`db:"name" json:"name"`
 	Email		string					`db:"email" json:"email"`
 	Password    string      			`db:"password" json:"-"`
 	Active		string					`db:"active" json:"active"`
@@ -18,6 +18,7 @@ type User struct {
 	Branch      *json.RawMessage      	`db:"branch" json:"branch"`
 	Department  *json.RawMessage      	`db:"department" json:"department"`
 	Position	*json.RawMessage		`db:"position" json:"position"`
+	Profile		*json.RawMessage		`db:"profile" json:"profile"`
 	UpdatedAt   *time.Time       		`db:"updated_at" json:"updated_at"`
 	CreatedAt   time.Time        		`db:"created_at" json:"created_at"`
 }

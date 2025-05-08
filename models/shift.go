@@ -23,7 +23,7 @@ func (m ShiftModel) One(id string) (shift interType.Shift, err error) {
 		s.created_at, 
 		s.updated_at
 	FROM sc_attendance.shift s 
-	LEFT JOIN sc_user.company c ON c.id = s.company_id
+	LEFT JOIN sc_users.company c ON c.id = s.company_id
 	where s.id = $1
 	order by s.created_at desc`, id)
 	return shift, err
@@ -44,7 +44,7 @@ func (m ShiftModel) All() (shift []interType.Shift, err error) {
 		s.created_at, 
 		s.updated_at
 	FROM sc_attendance.shift s 
-	LEFT JOIN sc_user.company c ON c.id = s.company_id
+	LEFT JOIN sc_users.company c ON c.id = s.company_id
 	order by s.created_at desc`
 	_, err = db.GetDB().Select(&shift, qs)
 	return shift, err

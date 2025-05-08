@@ -224,7 +224,7 @@ func FlexibleDelete(table_name string, cond *interType.UpdateCond) (err error) {
 
 func LogActivity(activity *interType.LogActivity) {
 	// Prepare statement untuk insert data ke dalam tabel
-	qs := "INSERT INTO sc_user.log_activity (user_id, type, detail) VALUES ($1, $2, $3)"
+	qs := "INSERT INTO sc_users.log_activity (user_id, type, detail) VALUES ($1, $2, $3)"
 
 	// Melakukan eksekusi perintah SQL untuk menambahkan aktivitas baru
 	_, err := db.GetDB().Exec(qs, activity.UserID, activity.Type, activity.Detail)

@@ -55,7 +55,7 @@ func (ctrl CompanyController) Create(c *gin.Context) {
 		return
 	}
 
-	id, err := models.FlexibleInsert("sc_user.company", form, "id")
+	id, err := models.FlexibleInsert("sc_users.company", form, "id")
 	if err != nil {
 		fmt.Println(err)
 
@@ -103,7 +103,7 @@ func (ctrl CompanyController) Update(c *gin.Context) {
 		Vals: id,
 	}
 
-	err := models.FlexibleUpdate("sc_user.company", form, cond, "id")
+	err := models.FlexibleUpdate("sc_users.company", form, cond, "id")
 	if err != nil {
 		fmt.Println(err)
 
@@ -143,7 +143,7 @@ func (ctrl CompanyController) Delete(c *gin.Context) {
 		Vals: id,
 	}
 
-	err := models.FlexibleDelete("sc_user.company", cond)
+	err := models.FlexibleDelete("sc_users.company", cond)
 	if err != nil {
 		standarizedResponse(c, true, http.StatusNotAcceptable, "Company could not be deleted", nil)
 		return

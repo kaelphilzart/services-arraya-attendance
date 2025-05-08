@@ -14,7 +14,7 @@ func authRoutes(rg *gin.RouterGroup) {
 	users := rg.Group("/auth")
 
 	// GET
-	users.GET("/logout", tokenMid.Validate(), controllersUser.Logout)
+	users.POST("/logout", tokenMid.Validate(), controllersUser.Logout)
 
 	// POST
 	users.POST("/login", controllersUser.Login)

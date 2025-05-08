@@ -55,7 +55,7 @@ func (ctrl DepartmentController) Create(c *gin.Context) {
 		return
 	}
 
-	id, err := models.FlexibleInsert("sc_user.department", form, "id")
+	id, err := models.FlexibleInsert("sc_users.department", form, "id")
 	if err != nil {
 		fmt.Println(err)
 
@@ -103,7 +103,7 @@ func (ctrl DepartmentController) Update(c *gin.Context) {
 		Vals: id,
 	}
 
-	err := models.FlexibleUpdate("sc_user.department", form, cond, "id")
+	err := models.FlexibleUpdate("sc_users.department", form, cond, "id")
 	if err != nil {
 		fmt.Println(err)
 
@@ -143,7 +143,7 @@ func (ctrl DepartmentController) Delete(c *gin.Context) {
 		Vals: id,
 	}
 
-	err := models.FlexibleDelete("sc_user.department", cond)
+	err := models.FlexibleDelete("sc_users.department", cond)
 	if err != nil {
 		standarizedResponse(c, true, http.StatusNotAcceptable, "Department could not be deleted", nil)
 		return

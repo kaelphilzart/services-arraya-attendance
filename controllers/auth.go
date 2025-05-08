@@ -36,29 +36,27 @@ func (ctl AuthController) TokenResetPasswordValid(c *gin.Context) {
 
 // TokenAdminValid ...
 func (ctl AuthController) TokenAdminValid(c *gin.Context) {
-
 	tokenAuth, err := authModel.ExtractTokenMetadata(c.Request)
 	if err != nil {
-		fmt.Println(err)
-		//Token either expired or not valid
+		fmt.Println("Token error:", err)
 		standarizedResponse(c, true, http.StatusUnauthorized, "Please login first", nil)
 		return
 	}
 	userID, err := authModel.FetchAuth(tokenAuth)
 	if err != nil {
-		fmt.Println(err)
-		//Token does not exists in Redis (User logged out or expired)
+		fmt.Println("FetchAuth error:", err)
 		standarizedResponse(c, true, http.StatusUnauthorized, "Please login first", nil)
 		return
 	}
-	if tokenAuth.RoleClient != "admin" {
+
+	// fmt.Println("role_client from token:", tokenAuth.RoleClient) // <=== INI DIA
+
+	if tokenAuth.RoleClient != "adm" {
 		standarizedResponse(c, true, http.StatusForbidden, "Forbidden Access!!", nil)
 		return
 	}
 
-	//To be called from GetUserID()
 	c.Set("userID", userID)
-	//To be called from GetRole()
 	c.Set("role", tokenAuth.RoleClient)
 }
 

@@ -55,7 +55,7 @@ func (ctrl PositionController) Create(c *gin.Context) {
 		return
 	}
 
-	id, err := models.FlexibleInsert("sc_user.position", form, "id")
+	id, err := models.FlexibleInsert("sc_users.position", form, "id")
 	if err != nil {
 		fmt.Println(err)
 
@@ -103,7 +103,7 @@ func (ctrl PositionController) Update(c *gin.Context) {
 		Vals: id,
 	}
 
-	err := models.FlexibleUpdate("sc_user.position", form, cond, "id")
+	err := models.FlexibleUpdate("sc_users.position", form, cond, "id")
 	if err != nil {
 		fmt.Println(err)
 
@@ -143,7 +143,7 @@ func (ctrl PositionController) Delete(c *gin.Context) {
 		Vals: id,
 	}
 
-	err := models.FlexibleDelete("sc_user.position", cond)
+	err := models.FlexibleDelete("sc_users.position", cond)
 	if err != nil {
 		standarizedResponse(c, true, http.StatusNotAcceptable, "Position could not be deleted", nil)
 		return

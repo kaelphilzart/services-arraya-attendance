@@ -58,7 +58,7 @@ func (ctrl RoleController) Create(c *gin.Context) {
 		return
 	}
 
-	id, err := models.FlexibleInsert("sc_user.role", form, "id")
+	id, err := models.FlexibleInsert("sc_users.role", form, "id")
 	if err != nil {
 		fmt.Println(err)
 
@@ -106,7 +106,7 @@ func (ctrl RoleController) Update(c *gin.Context) {
 		Vals: id,
 	}
 
-	err := models.FlexibleUpdate("sc_user.role", form, cond, "id")
+	err := models.FlexibleUpdate("sc_users.role", form, cond, "id")
 	if err != nil {
 		fmt.Println(err)
 
@@ -146,7 +146,7 @@ func (ctrl RoleController) Delete(c *gin.Context) {
 		Vals: id,
 	}
 
-	err := models.FlexibleDelete("sc_user.role", cond)
+	err := models.FlexibleDelete("sc_users.role", cond)
 	if err != nil {
 		standarizedResponse(c, true, http.StatusNotAcceptable, "Role could not be deleted", nil)
 		return

@@ -144,7 +144,7 @@ func (m UserModel) One(id string) (user interType.User, err error) {
 		u.created_at, 
 		u.updated_at,
 		u.deleted_at 
-	FROM sc_users.tb_user u
+	FROM sc_users.users u
 	LEFT JOIN sc_users.position p ON p.id = u.position_id
 	LEFT JOIN sc_users.branch b ON b.id = u.branch_id
 	LEFT JOIN sc_users.company c ON c.id = u.company_id
@@ -160,7 +160,7 @@ func (m UserModel) All() (user []interType.User, err error) {
 		u.id, 
 		u.name, 
 		u.email, 
-		tu.password,
+		u.password,
 		CASE 
 			WHEN r.id IS NOT NULL THEN jsonb_build_object('id', r.id, 'name', r.name) 
 			ELSE NULL 
@@ -182,20 +182,29 @@ func (m UserModel) All() (user []interType.User, err error) {
 			ELSE NULL 
 		END AS position,
 		CASE
-			WHEN up.id IS NOT NULL THEN jsonb_build_object('full_name', up.full_name, 'birth_date', up.birth_date, 'birth_place', up.birth_place, 'address', up.address, 'phone_number', up.phone_number, 'gender', up.gender, 'photo', up.photo,)
+			WHEN up.id IS NOT NULL THEN jsonb_build_object(
+				'full_name', up.full_name, 
+				'birth_date', up.birth_date, 
+				'birth_place', up.birth_place, 
+				'address', up.address, 
+				'phone_number', up.phone_number, 
+				'gender', up.gender, 
+				'photo', up.photo
+			)
 			ELSE NULL
 		END AS profile,
 		u.active,
 		u.created_at, 
-		u.updated_at,
-		u.deleted_at 
-	FROM sc_users.tb_user u
+		u.updated_at
+	FROM sc_users.users u
+	LEFT JOIN sc_users.role r ON r.id = u.role_id
 	LEFT JOIN sc_users.position p ON p.id = u.position_id
 	LEFT JOIN sc_users.branch b ON b.id = u.branch_id
 	LEFT JOIN sc_users.company c ON c.id = u.company_id
 	LEFT JOIN sc_users.department d ON d.id = p.department_id
 	LEFT JOIN sc_users.user_profile up ON up.user_id = u.id
 	ORDER BY u.created_at DESC`
+
 	_, err = db.GetDB().Select(&user, qs)
 	return user, err
 }

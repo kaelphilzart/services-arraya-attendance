@@ -17,7 +17,7 @@ func (m RoleModel) One(id string) (role interType.Role, err error) {
 		r.slug_name,
 		r.created_at, 
 		r.updated_at
-	FROM sc_user.role r	
+	FROM sc_users.role r	
 	where r.id = $1
 	order by r.created_at desc`, id)
 	return role, err
@@ -31,7 +31,7 @@ func (m RoleModel) All() (role []interType.Role, err error) {
 		r.slug_name,
 		r.created_at, 
 		r.updated_at
-	FROM sc_user.role r 
+	FROM sc_users.role r 
 	order by r.created_at desc`
 	_, err = db.GetDB().Select(&role, qs)
 	return role, err
