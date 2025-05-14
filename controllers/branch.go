@@ -55,7 +55,7 @@ func (ctrl BranchController) Create(c *gin.Context) {
 		return
 	}
 
-	id, err := models.FlexibleInsert("sc_user.branch", form, "id")
+	id, err := models.FlexibleInsert("sc_users.branch", form, "id")
 	if err != nil {
 		fmt.Println(err)
 
@@ -103,7 +103,7 @@ func (ctrl BranchController) Update(c *gin.Context) {
 		Vals: id,
 	}
 
-	err := models.FlexibleUpdate("sc_user.branch", form, cond, "id")
+	err := models.FlexibleUpdate("sc_users.branch", form, cond, "id")
 	if err != nil {
 		fmt.Println(err)
 
@@ -143,7 +143,7 @@ func (ctrl BranchController) Delete(c *gin.Context) {
 		Vals: id,
 	}
 
-	err := models.FlexibleDelete("sc_user.branch", cond)
+	err := models.FlexibleDelete("sc_users.branch", cond)
 	if err != nil {
 		standarizedResponse(c, true, http.StatusNotAcceptable, "Branch could not be deleted", nil)
 		return

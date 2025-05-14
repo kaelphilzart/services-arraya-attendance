@@ -21,4 +21,6 @@ type Attendance struct {
 	PhotoIn 		          *string          `db:"photo_in" json:"photo_in"`
 	PhotoOut        		  *string          `db:"photo_out" json:"photo_out"`
 	Note                      string           `db:"note" json:"note"`   
+	CreatedAt 				  time.Time        `db:"created_at" json:"created_at"`
+	UpdatedAt 				  time.Time        `db:"updated_at" json:"updated_at"`
 }

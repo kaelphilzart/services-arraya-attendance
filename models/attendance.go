@@ -33,7 +33,7 @@ func (m AttendanceModel) OneByUserId(id string) (attendance interType.Attendance
             a.created_at,
             a.updated_at
         from sc_attendance.attendance a 
-        left join sc_user.users u on u.id = a.user_id
+        left join sc_users.users u on u.id = a.user_id
         WHERE a.user_id = $1
         AND a.date = $2
         order by a.created_at desc
@@ -52,9 +52,31 @@ func (m AttendanceModel) One(id string) ([]interType.Attendance, error) {
                 WHEN u.id IS NOT NULL THEN jsonb_build_object(
                     'id', u.id, 
                     'name', u.name,
+                    'profile', jsonb_build_object(
+                        'full_name', up.full_name,
+                        'photo', up.photo, 
+                        'phone', up.phone_number,
+                        'birth_date', up.birth_date,
+                        'birth_place', up.birth_place,
+                        'address', up.address,
+                    ),
                     'position', jsonb_build_object(
                         'id', p.id,
                         'name', p.name
+                    ),
+                      'department', jsonb_build_object(
+                        'id', d.id,
+                        'name', d.name
+                    ),
+                    'company', jsonb_build_object(
+                        'id', c.id,
+                        'name', c.name
+                    ),
+                    'shift', jsonb_build_object(
+                        'id', s.id,
+                        'name', s.name,
+                        'start_time', s.start_time,
+                        'end_time', s.end_time
                     )
                 )
                 ELSE NULL 
@@ -69,22 +91,15 @@ func (m AttendanceModel) One(id string) ([]interType.Attendance, error) {
             a.photo_in,
             a.photo_out,
             a.note,
-            CASE
-                WHEN s.id IS NOT NULL THEN jsonb_build_object(
-                    'id', s.id,
-                    'name', s.name,
-                    'start_time', s.start_time,
-                    'end_time', s.end_time
-                )
-                ELSE NULL
-            END AS user_shift,
             a.created_at,
             a.updated_at
         FROM sc_attendance.attendance a 
-        LEFT JOIN sc_user.users u ON u.id = a.user_id
-        LEFT JOIN sc_user.position p ON p.id = u.position_id
-        LEFT JOIN sc_attendance.user_shift us ON us.user_id = u.id
-        LEFT JOIN sc_attendance.shift s ON s.id = us.shift_id
+        LEFT JOIN sc_users.users u ON u.id = a.user_id
+        LEFT JOIN sc_users.user_profile up ON up.user_id = u.id
+        LEFT JOIN sc_users.position p ON p.id = u.position_id
+        LEFT JOIN sc_users.department d ON d.id = u.department_id
+        LEFT JOIN sc_users.company c ON c.id = d.company_id
+        LEFT JOIN sc_attendance.shift s ON s.company_id = c.id
         WHERE a.user_id = $1
         ORDER BY a.created_at DESC
     `, id)
@@ -117,20 +132,11 @@ func (m AttendanceModel) All() (attendance []interType.Attendance, err error) {
             a.photo_in,
             a.photo_out,
             a.note,
-            CASE
-                WHEN s.id IS NOT NULL THEN jsonb_build_object(
-                    'id', s.id,
-                    'name', s.name,
-                    'start_time', s.start_time,
-                    'end_time', s.end_time
-                )
-                ELSE NULL
-            END AS user_shift,
             a.created_at,
             a.updated_at
         FROM sc_attendance.attendance a 
-        LEFT JOIN sc_user.users u ON u.id = a.user_id
-        LEFT JOIN sc_user.position p ON p.id = u.position_id
+        LEFT JOIN sc_users.users u ON u.id = a.user_id
+        LEFT JOIN sc_users.position p ON p.id = u.position_id
         LEFT JOIN sc_attendance.user_shift us ON us.user_id = u.id
         LEFT JOIN sc_attendance.shift s ON s.id = us.shift_id
 		order by a.created_at desc`
@@ -202,20 +208,11 @@ func (m AttendanceModel) History(id string) (attendance []interType.Attendance, 
             a.photo_in,
             a.photo_out,
             a.note,
-            CASE
-                WHEN s.id IS NOT NULL THEN jsonb_build_object(
-                    'id', s.id,
-                    'name', s.name,
-                    'start_time', s.start_time,
-                    'end_time', s.end_time
-                )
-                ELSE NULL
-            END AS user_shift,
             a.created_at,
             a.updated_at
         FROM sc_attendance.attendance a 
-        LEFT JOIN sc_user.users u ON u.id = a.user_id
-        LEFT JOIN sc_user.position p ON p.id = u.position_id
+        LEFT JOIN sc_users.users u ON u.id = a.user_id
+        LEFT JOIN sc_users.position p ON p.id = u.position_id
         LEFT JOIN sc_attendance.user_shift us ON us.user_id = u.id
         LEFT JOIN sc_attendance.shift s ON s.id = us.shift_id
         WHERE a.user_id = $1

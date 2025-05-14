@@ -142,7 +142,7 @@ func (ctrl ShiftController) Delete(c *gin.Context) {
 		Vals: id,
 	}
 
-	err := models.FlexibleDelete("sc_user.shift", cond)
+	err := models.FlexibleDelete("sc_attendance.shift", cond)
 	if err != nil {
 		standarizedResponse(c, true, http.StatusNotAcceptable, "Shift could not be deleted", nil)
 		return
