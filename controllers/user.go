@@ -295,50 +295,50 @@ func (ctrl UserController) Delete(c *gin.Context) {
 }
 
 
-// func (ctrl UserController) CreateUser(c *gin.Context) {
-// 	var form forms.CreateUserForm
+func (ctrl UserController) CreateUser(c *gin.Context) {
+	var form forms.CreateUserForm
 
-// 	// Validasi input
-// 	if validationErr := c.ShouldBindJSON(&form); validationErr != nil {
-// 		message := userForm.UserCreate(validationErr)
-// 		standarizedResponse(c, true, http.StatusNotAcceptable, message, nil)
-// 		return
-// 	}
+	// Validasi input
+	if validationErr := c.ShouldBindJSON(&form); validationErr != nil {
+		message := userForm.UserCreate(validationErr)
+		standarizedResponse(c, true, http.StatusNotAcceptable, message, nil)
+		return
+	}
 
-// 	// Hash password
-// 	bytePassword := []byte(form.Password)
-// 	hashedPassword, err := bcrypt.GenerateFromPassword(bytePassword, bcrypt.DefaultCost)
-// 	if err != nil {
-// 		standarizedResponse(c, true, http.StatusBadRequest, "Failed to hashing new password", nil)
-// 		return
-// 	}
+	// Hash password
+	bytePassword := []byte(form.Password)
+	hashedPassword, err := bcrypt.GenerateFromPassword(bytePassword, bcrypt.DefaultCost)
+	if err != nil {
+		standarizedResponse(c, true, http.StatusBadRequest, "Failed to hashing new password", nil)
+		return
+	}
 
-// 	// Membuat form baru dengan password yang sudah di-hash
-// 	formNewWithPass := &forms.UserCreateForm{}
-// 	mergeStructs(form, formNewWithPass)
-// 	formNewWithPass.Password = string(hashedPassword)
+	// Membuat form baru dengan password yang sudah di-hash
+	formNewWithPass := &forms.UserCreateForm{}
+	mergeStructs(form, formNewWithPass)
+	formNewWithPass.Password = string(hashedPassword)
 
-// 	// Insert ke database
-// 	id, err := models.FlexibleInsert("sc_users.users", formNewWithPass, "id")
-// 	if err != nil {
-// 		fmt.Println("ini error", err.Error())
+	// Insert ke database
+	id, err := models.FlexibleInsert("sc_users.users", formNewWithPass, "id")
+	if err != nil {
+		fmt.Println("ini error", err.Error())
 
-// 		if strings.Contains(err.Error(), `duplicate key value violates unique constraint "tb_user_unique_nip"`) {
-// 			standarizedResponse(c, true, http.StatusBadRequest, "NIP has already been registered", nil)
-// 		} else if strings.Contains(err.Error(), `duplicate key value violates unique constraint "tb_user_unique_email"`) {
-// 			standarizedResponse(c, true, http.StatusBadRequest, "Email has already been registered", nil)
-// 		} else {
-// 			standarizedResponse(c, true, http.StatusBadRequest, "User could not be created", nil)
-// 		}
-// 		return
-// 	}
+		if strings.Contains(err.Error(), `duplicate key value violates unique constraint "tb_user_unique_nip"`) {
+			standarizedResponse(c, true, http.StatusBadRequest, "NIP has already been registered", nil)
+		} else if strings.Contains(err.Error(), `duplicate key value violates unique constraint "tb_user_unique_email"`) {
+			standarizedResponse(c, true, http.StatusBadRequest, "Email has already been registered", nil)
+		} else {
+			standarizedResponse(c, true, http.StatusBadRequest, "User could not be created", nil)
+		}
+		return
+	}
 
-// 	// ------------------------------
-// 	// DISINI kita skip log activity karena belum ada user ID yang login
-// 	// (atau kalau mau tetap logging, pakai ID kosong / "SYSTEM" user)
-// 	// ------------------------------
+	// ------------------------------
+	// DISINI kita skip log activity karena belum ada user ID yang login
+	// (atau kalau mau tetap logging, pakai ID kosong / "SYSTEM" user)
+	// ------------------------------
 
-// 	// Langsung kirim response sukses
-// 	standarizedResponse(c, false, http.StatusOK, "Successfully Create User", gin.H{"id": id})
-// }
+	// Langsung kirim response sukses
+	standarizedResponse(c, false, http.StatusOK, "Successfully Create User", gin.H{"id": id})
+}
 

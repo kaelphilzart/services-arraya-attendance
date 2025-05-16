@@ -23,12 +23,12 @@ type UserCreateForm struct {
 	Active         bool      `form:"active" json:"active" binding:"required"`
 }
 
-// type CreateUserForm struct {
-// 	Name           string    `form:"name" json:"name" binding:"required,min=3,max=100,fullName"`
-// 	Email          string    `form:"email" json:"email" binding:"required,email"`
-// 	Password       string    `form:"password" json:"password" binding:"required"`
-// 	RoleId         uuid.UUID `form:"role_id" json:"role_id" binding:"required"`
-// }
+type CreateUserForm struct {
+	Name           string    `form:"name" json:"name" binding:"required,min=3,max=100"`
+	Email          string    `form:"email" json:"email" binding:"required,email"`
+	Password       string    `form:"password" json:"password" binding:"required"`
+	RoleId         uuid.UUID `form:"role_id" json:"role_id" binding:"required"`
+}
 
 type UserUpdateForm struct {
 	Name           string    `form:"name" json:"name" binding:"omitempty,min=3,max=100,fullName"`

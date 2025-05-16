@@ -40,8 +40,8 @@ func (m LeaveModel) One(id string) ([]interType.Leave, error) {
             l.created_at,
             l.updated_at
         FROM sc_attendance.leave l 
-        LEFT JOIN sc_user.users u ON u.id = l.user_id
-        LEFT JOIN sc_user.position p ON p.id = u.position_id
+        LEFT JOIN sc_users.users u ON u.id = l.user_id
+        LEFT JOIN sc_users.position p ON p.id = u.position_id
 		LEFT JOIN sc_attendance.type_leave tl ON tl.id = l.type_leave_id
         WHERE l.user_id = $1
         ORDER BY l.created_at DESC
@@ -82,8 +82,8 @@ func (m LeaveModel) OneByDepartment(departmentId string) ([]interType.Leave, err
             l.created_at,
             l.updated_at
         FROM sc_attendance.leave l 
-        LEFT JOIN sc_user.users u ON u.id = l.user_id
-        LEFT JOIN sc_user.position p ON p.id = u.position_id
+        LEFT JOIN sc_users.users u ON u.id = l.user_id
+        LEFT JOIN sc_users.position p ON p.id = u.position_id
         LEFT JOIN sc_attendance.type_leave tl ON tl.id = l.type_leave_id
         WHERE p.department_id = $1
         ORDER BY l.created_at DESC
@@ -117,15 +117,16 @@ func (m LeaveModel) All() (leave []interType.Leave, err error) {
             l.url_photo,
             l.start_date,
             l.end_date,
-            l.status,
+            COALESCE(l.status, false) AS status,
             l.current_approval_level,
             l.description,
             l.created_at,
             l.updated_at
         FROM sc_attendance.leave l 
-        LEFT JOIN sc_user.users u ON u.id = l.user_id
-        LEFT JOIN sc_user.position p ON p.id = u.position_id
+        LEFT JOIN sc_users.users u ON u.id = l.user_id
+        LEFT JOIN sc_users.position p ON p.id = u.position_id
 		LEFT JOIN sc_attendance.type_leave tl ON tl.id = l.type_leave_id
+        WHERE COALESCE(l.status, false) = false
 		order by l.created_at desc`
 	_, err = db.GetDB().Select(&leave, qs)
 	return leave, err

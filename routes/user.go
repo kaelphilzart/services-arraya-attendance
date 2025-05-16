@@ -18,7 +18,7 @@ func userRoutes(rg *gin.RouterGroup) {
 
 	// POST
 	users.POST("", tokenMid.ValidateAdmin(), controllers.Create)
-	// users.POST("/create", controllers.CreateUser)
+	users.POST("/createUser", controllers.CreateUser)
 
 	// DELETE
 	users.DELETE("/:id", tokenMid.ValidateAdmin(), controllers.Delete)
