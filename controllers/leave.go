@@ -19,11 +19,11 @@ type LeaveController struct{}
 var leaveModel = new(models.LeaveModel)
 var leaveForm = new(forms.LeaveForm)
 
-// OneByUserId
-func (ctrl LeaveController) One(c *gin.Context) {
+// AllByApprover
+func (ctrl LeaveController) AllByApprover(c *gin.Context) {
 	id := c.Param("id")
 
-	data, err := leaveModel.One(id)
+	data, err := leaveModel.AllByApprover(id)
 	if err != nil {
 		standarizedResponse(c, true, http.StatusNotFound, "Leave not found", nil)
 		return

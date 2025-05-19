@@ -6,6 +6,7 @@ import (
 	"services-arraya-attendance/forms"
 	interType "services-arraya-attendance/interfaces"
 	"services-arraya-attendance/models"
+	"strconv"
 	"strings"
 
 	"github.com/gin-gonic/gin"
@@ -59,7 +60,7 @@ func (ctrl LeaveApprovalController) Approval(c *gin.Context) {
 		return
 	}
 
-	// Insert approval
+	// Insert approval ke leave_approval
 	id, err := models.FlexibleInsert("sc_attendance.leave_approval", form, "id")
 	if err != nil {
 		fmt.Println(err)
@@ -71,7 +72,7 @@ func (ctrl LeaveApprovalController) Approval(c *gin.Context) {
 		return
 	}
 
-	// Get current leave data (ambil dari tabel leave)
+	// Ambil data cuti saat ini
 	leaveData, err := leaveModel.GetStatus(form.LeaveId)
 	if err != nil {
 		fmt.Println(err)
@@ -79,14 +80,15 @@ func (ctrl LeaveApprovalController) Approval(c *gin.Context) {
 		return
 	}
 
-	// Logic update current_level berdasarkan form.Status
+	// Tambah level jika status == true
 	newCurrentLevel := leaveData.CurrentApprovalLevel
-	if form.Status == "1" {  // perbandingan dengan string "1"
+	if form.Status {
 		newCurrentLevel += 1
 	}
 
-	// Ubah newCurrentLevel menjadi int8 (sesuai dengan tipe data CurrentApprovalLevel)
+	// Set nilai update form
 	updateForm.CurrentApprovalLevel = int8(newCurrentLevel)
+	updateForm.Status = strconv.FormatBool(form.Status) // jadi string "true" atau "false"
 
 	// Update leave
 	cond := &interType.UpdateCond{
@@ -105,14 +107,14 @@ func (ctrl LeaveApprovalController) Approval(c *gin.Context) {
 		return
 	}
 
-	// Parse User ID
+	// Parse UUID user
 	parsedUsrId, parseErr := uuid.Parse(getUserID(c))
 	if parseErr != nil {
 		standarizedResponse(c, true, http.StatusBadRequest, "Failed to parse UUID", nil)
 		return
 	}
 
-	// Log activity
+	// Log aktivitas
 	actLog := &interType.LogActivity{
 		UserID: parsedUsrId,
 		Type:   "approve",
@@ -120,8 +122,9 @@ func (ctrl LeaveApprovalController) Approval(c *gin.Context) {
 	}
 	go models.LogActivity(actLog)
 
-	// Success Response
+	// Berhasil
 	standarizedResponse(c, false, http.StatusOK, "Approval Leave Success", gin.H{"id": id})
 }
+
 
 

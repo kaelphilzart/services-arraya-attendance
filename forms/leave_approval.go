@@ -12,7 +12,7 @@ type ApproveForm struct {
 	LeaveId                  string    `form:"leave_id" json:"leave_id" binding:"required"`
 	Level               	 string    `form:"level" json:"level" binding:"omitempty"`
 	ApprovedBy  			 string    `form:"approved_by" json:"approved_by" binding:"required"`
-	Status          		 string    `form:"status" json:"status" binding:"required"`
+	Status          		 bool       `form:"status" json:"status" binding:"required"`
 	Note					 string    `form:"note" json:"note" binding:"required"`
 	ApprovedAt	 			 string    `form:"approved_at" json:"approved_at" binding:"required"`
 }

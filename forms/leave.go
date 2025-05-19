@@ -16,8 +16,8 @@ type PengajuanForm struct {
 	UrlPhoto               	 string    `form:"url_photo" json:"url_photo" binding:"omitempty"`
 	StartDate  			 	 string    `form:"start_date" json:"start_date" binding:"required"`
 	EndDate 			 	 string    `form:"end_date" json:"end_date" binding:"required"`
-	Status          		 string    `form:"status" json:"status" binding:"required"`
-	CurrentApprovalLevel	 int8    `form:"current_approval_level" json:"current_approval_level" binding:"required"`
+	Status          		 bool      `form:"status" json:"status" binding:"required"`
+	CurrentApprovalLevel	 int8      `form:"current_approval_level" json:"current_approval_level" binding:"required"`
 	Description	 			 string    `form:"description" json:"description" binding:"omitempty"`
 	
 }

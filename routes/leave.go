@@ -14,7 +14,7 @@ func leaveRoutes(rg *gin.RouterGroup) {
 
 	// GET
 	leave.GET("", tokenMid.ValidateAdmin(), controllers.All)
-	leave.GET("/:id", tokenMid.ValidateAdmin(), controllers.One)
+	leave.GET("/:id", tokenMid.ValidateAdmin(), controllers.AllByApprover)
 
 	// User
 	leave.POST("", tokenMid.Validate(), controllers.Pengajuan)
