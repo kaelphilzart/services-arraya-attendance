@@ -13,7 +13,7 @@ type BranchForm struct{}
 // Create ...
 type BranchCreateForm struct {
 	CompanyId	   string `form:"company_id" json:"company_id" binding:"required"`
-	Name           string `form:"name" json:"name" binding:"required,min=3,max=100"`
+	Name           string `form:"name" json:"name" binding:"required,min=3"`
 	Address        string `form:"address" json:"address" binding:"required"`
 	Contact    	   string `form:"contact" json:"contact" binding:"omitempty"`
 }
@@ -21,7 +21,7 @@ type BranchCreateForm struct {
 // Update ...
 type BranchUpdateForm struct {
 	CompanyId string `form:"company_id" json:"company_id" binding:"omitempty"`
-	Name           string `form:"name" json:"name" binding:"omitempty,min=3,max=100"`
+	Name           string `form:"name" json:"name" binding:"omitempty,min=3"`
 	Address        string `form:"address" json:"address" binding:"omitempty"`
 	Contact    	   string `form:"contact" json:"contact" binding:"omitempty"`
 }

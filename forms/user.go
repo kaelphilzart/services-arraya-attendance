@@ -12,7 +12,7 @@ import (
 type UserForm struct{}
 
 type UserCreateForm struct {
-	Name           string    `form:"name" json:"name" binding:"required,min=3,max=100,fullName"`
+	Name           string    `form:"name" json:"name" binding:"required,min=3,fullName"`
 	Email          string    `form:"email" json:"email" binding:"required,email"`
 	Password       string    `form:"password" json:"password" binding:"required"`
 	RoleId         uuid.UUID `form:"role_id" json:"role_id" binding:"required"`
@@ -24,14 +24,14 @@ type UserCreateForm struct {
 }
 
 type CreateUserForm struct {
-	Name           string    `form:"name" json:"name" binding:"required,min=3,max=100"`
+	Name           string    `form:"name" json:"name" binding:"required,min=3"`
 	Email          string    `form:"email" json:"email" binding:"required,email"`
 	Password       string    `form:"password" json:"password" binding:"required"`
 	RoleId         uuid.UUID `form:"role_id" json:"role_id" binding:"required"`
 }
 
 type UserUpdateForm struct {
-	Name           string    `form:"name" json:"name" binding:"omitempty,min=3,max=100,fullName"`
+	Name           string    `form:"name" json:"name" binding:"omitempty,min=3,fullName"`
 	Email          string    `form:"email" json:"email" binding:"omitempty,email"`
 	Password       string    `form:"password" json:"password" binding:"omitempty"`
 	RoleId         string    `form:"role_id" json:"role_id" binding:"omitempty"`

@@ -11,7 +11,7 @@ type DepartmentForm struct{}
 
 // Create ...
 type DepartmentCreateForm struct {
-	Name            string `form:"name" json:"name" binding:"required,min=3,max=100"`
+	Name            string `form:"name" json:"name" binding:"required,min=3"`
 	CompanyId       string `form:"company_id" json:"company_id" binding:"omitempty"`
 	BranchId        string `form:"branch_id" json:"branch_id" binding:"omitempty"`
 	DirectorId      string `form:"director_id" json:"director_id" binding:"omitempty"`
@@ -19,7 +19,7 @@ type DepartmentCreateForm struct {
 
 // Update ...
 type DepartmentUpdateForm struct {
-	Name            string `form:"name" json:"name" binding:"required,min=3,max=100"`
+	Name            string `form:"name" json:"name" binding:"required,min=3"`
 	CompanyId       string `form:"company_id" json:"company_id" binding:"omitempty"`
 	BranchId        string `form:"branch_id" json:"branch_id" binding:"omitempty"`
 	DirectorId      string `form:"director_id" json:"director_id" binding:"omitempty"`
