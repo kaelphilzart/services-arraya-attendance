@@ -12,7 +12,7 @@ type CompanyForm struct{}
 
 // Create ...
 type CompanyCreateForm struct {
-	Name     string `form:"name" json:"name" binding:"required,min=3,max=100"`
+	Name     string `form:"name" json:"name" binding:"required,min=3"`
 	Address  string `form:"address" json:"address" binding:"required,min=3"`
 	Contact  string `form:"contact" json:"contact" binding:"required,min=11,max=20"`
 }
