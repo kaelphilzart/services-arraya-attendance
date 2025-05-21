@@ -49,6 +49,7 @@ func (ctrl CompanyController) Create(c *gin.Context) {
 	var form forms.CompanyCreateForm
 
 	if validationErr := c.ShouldBindJSON(&form); validationErr != nil {
+		fmt.Printf("validationErr: %T - %v\n", validationErr, validationErr) // debug line
 		message := CompanyForm.Create(validationErr)
 
 		standarizedResponse(c, true, http.StatusNotAcceptable, message, nil)

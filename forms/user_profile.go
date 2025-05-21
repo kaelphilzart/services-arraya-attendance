@@ -18,7 +18,7 @@ type UserProfileCreateForm struct {
 	BirthPlace  string `form:"birth_place" json:"birth_place" binding:"required"`
 	Address     string `form:"address" json:"address" binding:"required"`
 	Gender      string `form:"gender" json:"gender" binding:"required"`
-	PhoneNumber string `form:"phone_number" json:"phone_number" binding:"required,min=12,max=14"`
+	PhoneNumber string `form:"phone_number" json:"phone_number" binding:"required,min=11,max=20"`
 	Photo    	string `form:"photo" json:"photo" binding:"omitempty"`
 }
 
