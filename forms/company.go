@@ -20,7 +20,7 @@ type CompanyCreateForm struct {
 // Update ...
 type CompanyUpdateForm struct {
 	Name     string `form:"name" json:"name" binding:"omitempty,min=3,max=100"`
-	Address 	 string `form:"address" json:"address" binding:"omitempty"`
+	Address  string `form:"address" json:"address" binding:"omitempty"`
 	Contact  string `form:"contact" json:"contact" binding:"omitempty"`
 }
 
