@@ -12,7 +12,7 @@ type ShiftForm struct{}
 // Shift Create ...
 type ShiftCreateForm struct {
 	CompanyId string `form:"company_id" json:"company_id" binding:"required"`
-	Name      string `form:"name" json:"name" binding:"required,min=3,max=100"`
+	Name      string `form:"name" json:"name" binding:"required,min=3,max=255"`
 	StartTime string `form:"start_time" json:"start_time" binding:"required"`
 	EndTime   string `form:"end_time" json:"end_time" binding:"required"`
 }
@@ -20,7 +20,7 @@ type ShiftCreateForm struct {
 // Shift Update ...
 type ShiftUpdateForm struct {
 	CompanyId string `form:"company_id" json:"company_id" binding:"omitempty"`
-	Name      string `form:"name" json:"name" binding:"omitempty,min=3,max=100"`
+	Name      string `form:"name" json:"name" binding:"omitempty,min=3,max=255"`
 	StartTime string `form:"start_time" json:"start_time" binding:"omitempty"`
 	EndTime   string `form:"end_time" json:"end_time" binding:"omitempty"`
 }

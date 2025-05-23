@@ -17,7 +17,7 @@ type RoleCreateForm struct {
 }
 
 type UpdateRoleForm struct {
-	Name        string `form:"name" json:"name" binding:"omitempty,min=3,max=100,fullName"`
+	Name        string `form:"name" json:"name" binding:"omitempty,min=3,max=255,fullName"`
 	SlugName    string `form:"slug_name" json:"slug_name" binding:"omitempty"`
 }
 

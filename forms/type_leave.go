@@ -12,14 +12,14 @@ type TypeLeaveForm struct{}
 
 // Create ...
 type TypeLeaveCreateForm struct {
-	Code         string `form:"code" json:"code" binding:"required,min=2,max=100"`
-	Name         string `form:"name" json:"name" binding:"required,min=3,max=100"`
+	Code         string `form:"code" json:"code" binding:"required,min=2,max=255"`
+	Name         string `form:"name" json:"name" binding:"required,min=3,max=255"`
 }
 
 // Update ...
 type TypeLeaveUpdateForm struct {
-	Code         string `form:"code" json:"code" binding:"omitempty,min=2,max=100"`
-	Name         string `form:"name" json:"name" binding:"omitempty,min=3,max=100"`
+	Code         string `form:"code" json:"code" binding:"omitempty,min=2,max=255"`
+	Name         string `form:"name" json:"name" binding:"omitempty,min=3,max=255"`
 }
 
 // Name ...

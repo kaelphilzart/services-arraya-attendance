@@ -13,7 +13,7 @@ type UserProfileForm struct{}
 
 type UserProfileCreateForm struct {
 	UserId      uuid.UUID `form:"user_id" json:"user_id" binding:"required"`
-	FullName    string `form:"full_name" json:"full_name" binding:"required,min=5,max=100,fullName"`
+	FullName    string `form:"full_name" json:"full_name" binding:"required,min=5, max=255, fullName"`
 	BirthDate   string `form:"birth_date" json:"birth_date" binding:"required"`
 	BirthPlace  string `form:"birth_place" json:"birth_place" binding:"required"`
 	Address     string `form:"address" json:"address" binding:"required"`
@@ -23,12 +23,12 @@ type UserProfileCreateForm struct {
 }
 
 type UpdateUserProfileForm struct {
-	FullName    string `form:"full_name" json:"full_name" binding:"omitempty,min=3,max=100,fullName"`
+	FullName    string `form:"full_name" json:"full_name" binding:"omitempty,min=3, max=255,fullName"`
 	BirthDate   string `form:"birth_date" json:"birth_date" binding:"omitempty"`
 	BirthPlace  string `form:"birth_place" json:"birth_place" binding:"omitempty"`
 	Address     string `form:"address" json:"address" binding:"omitempty"`
 	Gender      string `form:"gender" json:"gender" binding:"omitempty"`
-	PhoneNumber string `form:"phone_number" json:"phone_number" binding:"omitempty,min=10,max=14"`
+	PhoneNumber string `form:"phone_number" json:"phone_number" binding:"omitempty,min=11,max=20"`
 	Photo       string `form:"photo" json:"photo" binding:"omitempty"`
 }
 
